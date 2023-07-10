@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caprasimo&family=Caveat:wght@400;500&family=Comforter&family=Dancing+Script:wght@500&family=Fasthand&family=Lilita+One&family=Lora:ital@1&display=swap');
+* {
+  font-family: 'Alfa Slab One', cursive;
+font-family: 'Caprasimo', cursive;
+font-family: 'Caveat', cursive;
+font-family: 'Comforter', cursive;
+font-family: 'Dancing Script', cursive;
+font-family: 'Fasthand', cursive;
+font-family: 'Lilita One', cursive;
+font-family: 'Lora', serif;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: antiquewhite;
+  background-image: url("D:\ReactApp\myapp\src\components\img.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.form-container {
+  width: 400px;
+  height: 450px;
+  background-color: pink;
+  padding: 20px;
+}
+.form-container:hover{
+  box-shadow: 0 2px 6px 0 rgba(255, 105, 180, 0.5);
+}
+.input-group {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.link1 {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+.btn2{
+  padding: 10px 20px;
+  background-color: #ff4081;
+  color: white;
+  border: none;
+}
+.btn2:hover {
+  background-color:  #f50057;
+}

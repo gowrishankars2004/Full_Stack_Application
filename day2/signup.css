@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caprasimo&family=Caveat:wght@400;500&family=Comforter&family=Dancing+Script:wght@500&family=Fasthand&family=Lilita+One&family=Lora:ital@1&display=swap');
+* {
+  font-family: 'Alfa Slab One', cursive;
+font-family: 'Caprasimo', cursive;
+font-family: 'Caveat', cursive;
+font-family: 'Comforter', cursive;
+font-family: 'Dancing Script', cursive;
+font-family: 'Fasthand', cursive;
+font-family: 'Lilita One', cursive;
+font-family: 'Lora', serif;
+}
+.container1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: antiquewhite;
+  background-image: url("D:\ReactApp\myapp\src\components\img.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.form-container1 {
+  width: 400px;
+  height: 450px;
+  background-color: pink;
+  margin: 0 auto; /* Center align horizontally */
+  padding: 20px; /* Add some padding for spacing */
+  
+}
+.form-container1:hover{
+  box-shadow: 0 2px 6px 0 rgba(255, 105, 180, 0.5);
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
+  margin-top: 20px; /* Add top margin for spacing */
+}
+
+.btn {
+  background-color: #ff4081;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #f50057;
+}
+
+input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+input::placeholder {
+  color: #968484;
+}
+
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Additional styling for responsiveness */
+
+@media (max-width: 480px) {
+  .form-container1 {
+    width: 90%;
+  }
+}
