@@ -1,0 +1,80 @@
+import React, { useState } from "react";
+import Home from "../home";
+import Contact from "./contact";
+import About from "./About";
+import "./nav.css";
+import { Link } from "react-router-dom";
+import Profile from "./profile";
+import { FaShoppingCart } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
+
+export default function Container() {
+  const[isDropdownOpen,setIsDropdownOpen]=useState(false);
+
+ const toggleDropdown = () => {
+  setIsDropdownOpen(!isDropdownOpen);
+ };
+
+  return (
+    <div className="Container-main">
+      <div>
+        <nav className="navbar">
+          <div className="navbar-logo">
+            <button className="nav-btn" onClick={toggleDropdown}>Shop Smart</button> {isDropdownOpen && (
+                <ul>
+                  <li>
+                    <Link to="/home">Inventory</Link>
+                  </li>
+                  <li>
+                    <Link to="/profile">Product Catolog</Link>
+                  </li>
+                  <li>
+                    <Link to="/aboutUs">Sales Report</Link>
+                  </li>
+                  <li>
+                    <Link to="/contact">Billing</Link>
+                  </li>
+                </ul>
+            )}
+            <FaShoppingCart className="icon" />
+          </div>
+          <ul className="nav-items">
+            <li>
+              <Link to="/home">Home</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+              <Link to="/aboutUs">About us</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
+            <button className="btn-btn">
+              <Link to="/signup">
+                <FiLogOut />
+              </Link>
+            </button>
+          </ul>
+        </nav>
+      </div>
+      <div>
+        {(() => {
+          if (window.location.pathname === "/home") {
+            return <Home />;
+          }
+          if (window.location.pathname === "/profile") {
+            return <Profile />;
+          }
+          if (window.location.pathname === "/aboutUs") {
+            return <About />;
+          }
+          if (window.location.pathname === "/contact") {
+            return <Contact />;
+          }
+        })()}
+      </div>
+    </div>
+  );
+}
