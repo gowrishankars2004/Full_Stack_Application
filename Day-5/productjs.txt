@@ -1,0 +1,36 @@
+import React from "react";
+import "./product.css";
+import ProductData from "./productData";
+
+const Product = () => {
+  return (
+    <div className="product-container">
+      {ProductData.map((product) => (
+        <div className="box" key={product.id}>
+          <div className="box-content">
+            <div className="image-box">
+              <img
+                src={product.image}
+                alt={product.title}
+                style={{ height: "400px", width: "400px", overflow: "hidden", objectFit: "cover" }}
+              />
+            </div>
+            <div className="image-box-details">
+              <div className="image-box-details-info">
+                <h3>Fruits</h3>
+                <h3>{product.title}</h3>
+                <p>Price: {product.price}</p>
+                <p>Available Quantity: {product.quantity}</p>
+                <div className="image-box-details-btn">
+                <button className="product-container-btn">Restock</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Product;
