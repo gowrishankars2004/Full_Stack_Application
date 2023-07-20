@@ -1,0 +1,106 @@
+package com.react.react.Apicontroller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.react.react.ApiService.ProductService;
+import com.react.react.AppEntity.Product;
+
+
+
+@CrossOrigin
+@RestController
+public class ProductController {
+    @Autowired
+    private ProductService ser;
+
+
+    @GetMapping("/productsDetails")
+    public List<Product> getStudentList(){
+        return ser.getProduct();
+    }
+
+
+    @PutMapping("/productsDetails/update")
+    public String  updateProductDetails(@PathVariable int product_id,Product product){
+         ser.updateProduct(product_id, product);
+         return "Product saved successfully";
+    }
+
+}
+package com.react.react.ApiService;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.react.react.AppEntity.Product;
+import com.react.react.AppRepository.ApiRepository;
+
+
+@Service
+public class ProductService {
+    @Autowired  
+    private ApiRepository repo;
+    public List<Product> getProduct(){
+        return repo.findAll();        
+    }
+
+    public String updateProduct(int product_id,Product pro){
+        pro.setProduct_id(product_id);
+        repo.saveAndFlush(pro);
+        return "Product saved successfully";
+    }
+      
+}
+package com.react.react.AppEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "products_data")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Product {
+    @Id
+    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int product_id;
+    private String product_name;
+    private String product_quantity;
+    private String product_price;
+    private String product_total_price;
+    private String product_image_path;
+}
+package com.react.react.AppRepository;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.react.react.AppEntity.Product;
+
+
+@EnableAutoConfiguration
+@EntityScan(basePackages="com.react.react.entity")
+public interface ApiRepository extends JpaRepository<Product,Integer>{
+    
+}
