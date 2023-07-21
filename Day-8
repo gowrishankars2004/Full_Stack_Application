@@ -1,0 +1,157 @@
+// store.js
+import { createStore } from "redux";
+
+const initialState = {
+  items: [],
+};
+
+const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "ADD_ITEM":
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+      };
+    case "DELETE_ITEM":
+      return {
+        ...state,
+        items: state.items.filter((item, index) => index !== action.payload),
+      };
+    case "CLEAR_ITEMS":
+      return {
+        ...state,
+        items: [],
+      };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(rootReducer);
+import React, { useState } from "react";
+import "./billing.css";
+import { useDispatch, useSelector } from "react-redux"; // Import useDispatch and useSelector
+import { Link } from "react-router-dom";
+
+const Billing = () => {
+  const [productName, setProductName] = useState("");
+  const [productQuantity, setProductQuantity] = useState("");
+  const [productPrice, setProductPrice] = useState("");
+
+  const dispatch = useDispatch(); // Use useDispatch to dispatch actions
+  const items = useSelector((state) => state.items); // Use useSelector to access the items array from the Redux store
+
+  const handleProductNameChange = (e) => {
+    setProductName(e.target.value);
+  };
+
+  const handleProductQuantityChange = (e) => {
+    setProductQuantity(e.target.value);
+  };
+
+  const handleProductPriceChange = (e) => {
+    setProductPrice(e.target.value);
+  };
+
+  const calculateTotal = () => {
+    let totalAmount = 0;
+    items.forEach((item) => {
+      totalAmount += item.total;
+    });
+    localStorage.setItem('totalAmount', totalAmount);
+    return totalAmount.toFixed(2);
+
+  };
+  
+
+  const handleAddItem = () => {
+    const newItem = {
+      productName,
+      productQuantity: parseInt(productQuantity),
+      productPrice: parseInt(productPrice),
+      total: parseInt(productQuantity) * parseInt(productPrice),
+    };
+    dispatch({ type: "ADD_ITEM", payload: newItem });
+    // ...
+  };
+
+  const handleDeleteItem = (index) => {
+    dispatch({ type: "DELETE_ITEM", payload: index });
+  };
+
+
+  return (
+    <div className="billing-container-amount">
+      <div className="billing-container">
+        <div className="billing-container-heading">
+          <h3>Product bill</h3>
+        </div>
+        <div className="billing-container-heading-body">
+          <input
+            type="text"
+            name="productName"
+            placeholder="Enter productName"
+            value={productName}
+            onChange={handleProductNameChange}
+          />
+          <input
+            type="text"
+            name="productQuantity"
+            placeholder="Enter productQuantity"
+            value={productQuantity}
+            onChange={handleProductQuantityChange}
+          />
+          <input
+            type="text"
+            name="productPrice"
+            placeholder="Enter productPrice"
+            value={productPrice}
+            onChange={handleProductPriceChange}
+          />
+          <button type="submit" onClick={handleAddItem}>
+            Add Items
+          </button>
+        </div>
+        <div className="billing-container-table">
+          <table style={{ padding: "30px" }}>
+            <thead>
+              <tr>
+                <th style={{ padding: "30px" }}>Product Name</th>
+                <th style={{ padding: "30px" }}>MRP</th>
+                <th style={{ padding: "30px" }}>Quantity</th>
+                <th style={{ padding: "30px" }}>Total</th>
+                <th style={{ padding: "30px" }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.productName}</td>
+                  <td>Rs {item.productPrice}</td>
+                  <td>{item.productQuantity}</td>
+                  <td>Rs {item.total}</td>
+                  <td>
+                    <button onClick={() => handleDeleteItem(index)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="billing_totals">
+          Total: Rs {calculateTotal()}
+          <Link to="/invoice" className="billing_btn" >
+            Generate Invoice
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Billing;
+
+
+export default store;
